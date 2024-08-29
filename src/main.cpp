@@ -36,9 +36,26 @@ Eigen::Vector3d eigen_matrix_types_example()
     c << 1.0, 2.0, 3.0; //assign [1, 2, 3]^T to the vector.
 }
 
+Eigen::Matrix3d skew_symmetric (Eigen::Vector3d x){
+ Eigen::Matrix3d skew_matrix;
+    skew_matrix<<
+        0.0, -x.z(), x.y(),
+    x.z(),0.0, -x.x(),
+    -x.y(),x.x(), 0;
+    return skew_matrix;
+}
+
+void skew_symmetric_test()
+{
+    Eigen::Matrix3d skew_matrix = skew_symmetric(Eigen::Vector3d{0.5, 0.5, 0.707107});
+    std::cout << "Skew-symmetric matrix: " << std::endl;
+    std::cout << skew_matrix << std::endl;
+    std::cout << "Skew-symmetric matrix transposition: " << std::endl;
+    std::cout << -skew_matrix.transpose() << std::endl;
+}
+
 int main()
 {
-    Eigen::Vector3d vec = eigen_matrix_types_example();
-    std::cout << vec.transpose() << std::endl;
+   skew_symmetric_test();
     return 0;
 }
